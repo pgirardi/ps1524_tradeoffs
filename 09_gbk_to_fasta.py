@@ -17,7 +17,7 @@ def gbk_to_fasta(gbk_path, outdir):
     if not recs:
         return None
 
-    # use the single record (your trp-island extractor produces 1 per file)
+    # use the single record (trp-island script produces 1 per file)
     rec = recs[0]
 
     outpath = outdir / (gbk_path.stem + ".fasta")
