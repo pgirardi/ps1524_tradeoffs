@@ -1,0 +1,497 @@
+# Snakefile
+import os
+from pathlib import Path
+
+# CONFIG
+GENBANK_DIR = "inputs/input_genbank"
+RAW_DIR = "intermediate/trp_islands_raw"
+CLEAN_DIR = "intermediate/trp_islands_clean"
+PHOLD_OUT = "results/phold"
+PHAROKKA_ENV_NAME = "pharokka13"  # (mmseqs2==13.45111)
+PHAROKKA_DB = ""  # "" to use default
+PHAROKKA_OUT = "results/pharokka"
+PHOLD_ENV_PREFIX = "" # path to phold conda env
+PAD = 1000  # bp of padding on each side of midpoint->midpoint slice
+
+# Create directories
+for d in [RAW_DIR, CLEAN_DIR, PHAROKKA_OUT, PHOLD_OUT]:
+    os.makedirs(d, exist_ok=True)
+
+# Discover genomes from GenBank files
+GENOMES = [Path(p).stem for p in sorted(Path(GENBANK_DIR).glob("*.gbk"))]
+
+# Filters
+MAX_LEN = 100_000  # 100 kb
+PHAGE_KEYWORDS = ["phage", "baseplate", "capsid", "tail fiber"]
+
+rule all:
+    input:
+        expand(f"{CLEAN_DIR}/{{genome}}.trp_island.clean.gbk", genome=GENOMES),
+        expand(f"{CLEAN_DIR}/{{genome}}.trp_island.clean.fna", genome=GENOMES)
+
+rule extract_trp_island:
+    input:
+        gbk=lambda w: f"{GENBANK_DIR}/{w.genome}.gbk"
+    output:
+        gbk=f"{RAW_DIR}/{{genome}}.trp_island.gbk",
+        fna=f"{RAW_DIR}/{{genome}}.trp_island.fna"
+    params:
+        pad=lambda w: PAD
+    conda:
+        "envs/biopython.yml"
+    shell:
+        r'''
+        set -euo pipefail
+        echo "[extract] Using CONDA_PREFIX=$CONDA_PREFIX" >&2
+        "$CONDA_PREFIX/bin/python" - <<'PY'
+import re, sys
+from pathlib import Path
+from Bio import SeqIO
+from Bio.SeqRecord import SeqRecord
+from Bio.SeqFeature import SeqFeature, FeatureLocation
+
+# regex patterns (case-insensitive)
+TRPE_PATTS = [
+    re.compile(r"\btrpE\b", re.I),
+    re.compile(r"anthranilate synthase component\s*I\b", re.I),
+    re.compile(r"aminodeoxychorismate/anthranilate synthase component\s*I\b", re.I),
+]
+TRPG_PATTS = [
+    re.compile(r"\btrpG\b", re.I),
+    re.compile(r"anthranilate synthase component\s*II\b", re.I),
+    re.compile(r"aminodeoxychorismate/anthranilate synthase component\s*II\b", re.I),
+]
+
+def _collect_texts(qs):
+    texts = []
+    for k in ("gene","product","Name","locus_tag"):
+        v = qs.get(k, [])
+        if isinstance(v, str):
+            texts.append(v)
+        else:
+            texts.extend(v)
+    return " ; ".join(texts)
+
+def is_trpE(f):
+    return any(p.search(_collect_texts(f.qualifiers)) for p in TRPE_PATTS)
+
+def is_trpG(f):
+    return any(p.search(_collect_texts(f.qualifiers)) for p in TRPG_PATTS)
+
+def mid(feature):
+    return int((int(feature.location.start) + int(feature.location.end)) / 2)
+
+def slice_record(rec, a, b, pad):
+    start = max(0, min(a,b) - pad)
+    end   = min(len(rec.seq), max(a,b) + pad)
+    # build description without braces (avoid f-strings)
+    desc = str(rec.id) + ":" + str(start + 1) + "-" + str(end)
+    sub = SeqRecord(rec.seq[start:end], id=str(rec.id), name=str(rec.name), description=desc)
+    sub.annotations["molecule_type"] = rec.annotations.get("molecule_type", "DNA")
+    # remap features into slice
+    new_feats = []
+    for f in rec.features:
+        fstart = int(f.location.start)
+        fend   = int(f.location.end)
+        if fend < start or fstart > end:
+            continue
+        new_loc = FeatureLocation(max(0, fstart - start),
+                                  min(end - start, fend - start),
+                                  strand=f.location.strand)
+        new_feats.append(SeqFeature(new_loc, type=f.type, qualifiers=f.qualifiers))
+    sub.features = new_feats
+    return sub, start, end
+
+ingbk   = r"{input.gbk}"
+out_gbk = r"{output.gbk}"
+out_fna = r"{output.fna}"
+pad     = int("{params.pad}")
+
+# truncate outputs first
+open(out_gbk, "wb").close()
+open(out_fna, "wb").close()
+
+matched_any = False
+for rec in SeqIO.parse(ingbk, "genbank"):
+    # avoid set literal: use tuple + set() to dodge braces
+    gene_or_cds = set(("gene","CDS"))
+    trpE_feats = [f for f in rec.features if getattr(f, "type", "") in gene_or_cds and is_trpE(f)]
+    trpG_feats = [f for f in rec.features if getattr(f, "type", "") in gene_or_cds and is_trpG(f)]
+    if not trpE_feats or not trpG_feats:
+        continue
+
+    # choose closest pair by midpoint distance
+    best = None
+    bestdist = None
+    for e in trpE_feats:
+        for g in trpG_feats:
+            d = abs(mid(e) - mid(g))
+            if bestdist is None or d < bestdist:
+                bestdist = d
+                best = (e, g)
+    e, g = best
+    sub, start, end = slice_record(rec, mid(e), mid(g), pad)
+
+    # write a single island per input contig (closest pair)
+    SeqIO.write(sub, out_gbk, "genbank")
+    SeqIO.write(sub, out_fna, "fasta")
+    matched_any = True
+
+    # debug to stderr (no f-strings / braces)
+    ename = "/".join(e.qualifiers.get("gene", e.qualifiers.get("product", ["?"])))
+    gname = "/".join(g.qualifiers.get("gene", g.qualifiers.get("product", ["?"])))
+    dbg = "[extract]\t" + Path(ingbk).name + "\t" + str(rec.id) + "\t" + str(start + 1) + "\t" + str(end) + "\t" \
+          + "dist=" + str(bestdist) + "\tE=" + ename + "\tG=" + gname
+    print(dbg, file=sys.stderr)
+
+if not matched_any:
+    print("[extract] No trpE/trpG found in " + Path(ingbk).name, file=sys.stderr)
+PY
+        '''
+
+rule filter_trp_island:
+    input:
+        gbk=f"{RAW_DIR}/{{genome}}.trp_island.gbk",
+        fna=f"{RAW_DIR}/{{genome}}.trp_island.fna"
+    output:
+        gbk=f"{CLEAN_DIR}/{{genome}}.trp_island.clean.gbk",
+        fna=f"{CLEAN_DIR}/{{genome}}.trp_island.clean.fna"
+    params:
+        max_len=MAX_LEN,
+        phage_kw="|".join(PHAGE_KEYWORDS)
+    conda:
+        "envs/biopython.yml"
+    shell:
+        r'''
+        set -euo pipefail
+        echo "[filter] Using CONDA_PREFIX=$CONDA_PREFIX" >&2
+        "$CONDA_PREFIX/bin/python" - <<'PY'
+from Bio import SeqIO
+import os, re
+
+in_gbk = r"{input.gbk}"
+in_fna = r"{input.fna}"
+out_gbk = r"{output.gbk}"
+out_fna = r"{output.fna}"
+max_len = int("{params.max_len}")
+phage_kw = r"{params.phage_kw}"
+
+patt = re.compile(phage_kw, re.I)
+
+def contains_phage_keywords(record):
+    for feat in record.features:
+        for key in ("gene","product","note","function","label"):
+            if any(patt.search(str(v)) for v in feat.qualifiers.get(key, [])):
+                return True
+    return False
+
+ok = False
+if os.path.exists(in_gbk) and os.path.getsize(in_gbk) > 0:
+    recs = list(SeqIO.parse(in_gbk, "genbank"))
+    if recs:
+        r = recs[0]
+        if len(r.seq) < max_len and contains_phage_keywords(r):
+            ok = True
+
+if ok:
+    with open(in_gbk, "rb") as fsrc, open(out_gbk, "wb") as fdst:
+        fdst.write(fsrc.read())
+    with open(in_fna, "rb") as fsrc, open(out_fna, "wb") as fdst:
+        fdst.write(fsrc.read())
+else:
+    open(out_gbk, "w").close()
+    open(out_fna, "w").close()
+PY
+        '''
+
+############################################
+# Helpers: map between base sample and clean file prefix
+############################################
+
+TRP_SUFFIX = "_trpE_trpG"
+
+def base_from_clean_prefix(clean_prefix: str) -> str:
+    # clean_prefix is like "<BASE>_trpE_trpG"
+    if clean_prefix.endswith(TRP_SUFFIX):
+        return clean_prefix[: -len(TRP_SUFFIX)]
+    return clean_prefix
+
+def clean_prefix_from_base(base: str) -> str:
+    return base + TRP_SUFFIX
+
+############################################
+# 1) Checkpoint: enumerate non-empty cleaned islands
+#    Write BASE sample IDs (no _trpE_trpG) to clean_list.txt
+############################################
+
+checkpoint collect_clean_islands:
+    input:
+        expand(f"{CLEAN_DIR}/{{genome}}.trp_island.clean.fna", genome=GENOMES)
+    output:
+        "intermediate/clean_list.txt"
+    run:
+        import os, glob
+        os.makedirs("intermediate", exist_ok=True)
+        with open(output[0], "w") as o:
+            for f in sorted(glob.glob(f"{CLEAN_DIR}/*.trp_island.clean.fna")):
+                if os.path.exists(f) and os.path.getsize(f) > 0:
+                    clean_prefix = os.path.basename(f).replace(".trp_island.clean.fna", "")
+                    base = base_from_clean_prefix(clean_prefix)
+                    o.write(base + "\n")
+
+def samples_from_ckpt(wildcards):
+    ckpt = checkpoints.collect_clean_islands.get(**wildcards)
+    with open(ckpt.output[0]) as fh:
+        return [ln.strip() for ln in fh if ln.strip()]
+
+############################################
+# Pharokka TODO list: only BASE samples lacking a GBK
+############################################
+rule pharokka_todo:
+    input:
+        listfile=lambda wc: checkpoints.collect_clean_islands.get(**wc).output[0]
+    output:
+        todo="intermediate/pharokka_todo.txt"
+    run:
+        import os
+        os.makedirs("intermediate", exist_ok=True)
+        with open(input.listfile) as fh:
+            samples = [ln.strip() for ln in fh if ln.strip()]
+        with open(output.todo, "w") as out:
+            for s in samples:
+                gbk = f"{PHAROKKA_OUT}/{s}/pharokka/{s}.gbk"
+                if not (os.path.exists(gbk) and os.path.getsize(gbk) > 0):
+                    out.write(s + "\n")
+
+############################################
+# Submit Pharokka for only the TODO samples
+# - find cleaned fasta using "<BASE>_trpE_trpG.trp_island.clean.fna"
+############################################
+rule submit_pharokka_from_todo:
+    input:
+        todo=rules.pharokka_todo.output.todo
+    output:
+        flag="flags/pharokka_submitted.flag"
+    shell:
+        r'''
+        set -euo pipefail
+        mkdir -p flags logs
+        BATCH=20
+        TMP_EXPECTED="flags/.pharokka_expected.tmp"
+        : > "$TMP_EXPECTED"
+        count=0
+
+        submit_and_maybe_wait() {{
+          if (( count < BATCH )); then
+            return
+          fi
+          while true; do
+            missing=0
+            while IFS= read -r path; do
+              [[ -n "$path" ]] || continue
+              [[ -s "$path" ]] || missing=$((missing+1))
+            done < "$TMP_EXPECTED"
+            if (( missing == 0 )); then break; fi
+            echo "[pharokka/batch] waiting: $missing not ready..." >&2
+            sleep 60
+          done
+          : > "$TMP_EXPECTED"
+          count=0
+        }}
+
+        while IFS= read -r s; do
+          [[ -n "$s" ]] || continue
+
+          # cleaned fasta is stored with "_trpE_trpG" suffix
+          fa="{CLEAN_DIR}/${s}_trpE_trpG.trp_island.clean.fna"
+          if [[ ! -s "$fa" ]]; then
+            echo "[submit_pharokka] Skip (no fasta): $s -> $fa" >&2
+            continue
+          fi
+
+          outgbk="{PHAROKKA_OUT}/$s/pharokka/$s.gbk"
+
+          if [[ -s "$outgbk" ]]; then
+            echo "[submit_pharokka] Already done: $outgbk" >&2
+          else
+            echo "[submit_pharokka] sbatch $s"
+            sbatch scripts/pharokka_job.sh "$fa" "{PHAROKKA_OUT}" "$s" >/dev/null
+          fi
+
+          printf '%s\n' "$outgbk" >> "$TMP_EXPECTED"
+          count=$((count+1))
+          submit_and_maybe_wait
+        done < "{input.todo}"
+
+        if (( count > 0 )); then
+          while true; do
+            missing=0
+            while IFS= read -r path; do
+              [[ -n "$path" ]] || continue
+              [[ -s "$path" ]] || missing=$((missing+1))
+            done < "$TMP_EXPECTED"
+            if (( missing == 0 )); then break; fi
+            echo "[pharokka/batch] waiting (final): $missing not ready..." >&2
+            sleep 60
+          done
+        fi
+
+        date > {output.flag}
+        '''
+
+############################################
+# Wait until ALL Pharokka GBKs exist
+############################################
+rule wait_pharokka_all:
+    input:
+        listfile=lambda wc: checkpoints.collect_clean_islands.get(**wc).output[0],
+        submitted=rules.submit_pharokka_from_todo.output.flag
+    output:
+        flag="flags/pharokka_all_complete.flag"
+    shell:
+        r'''
+        set -euo pipefail
+        mkdir -p flags
+
+        while true; do
+          missing=0
+          while IFS= read -r s; do
+            [[ -n "$s" ]] || continue
+            gbk="{PHAROKKA_OUT}/$s/pharokka/$s.gbk"
+            [[ -s "$gbk" ]] || missing=$((missing+1))
+          done < "{input.listfile}"
+
+          if (( missing == 0 )); then break; fi
+          echo "[wait_pharokka_all] waiting: $missing outputs not ready..." >&2
+          sleep 60
+        done
+
+        date > {output.flag}
+        '''
+
+############################################
+# Phold TODO: samples lacking a phold.done (but have Pharokka GBK)
+############################################
+rule phold_todo:
+    input:
+        # ensure Pharokka is fully done first
+        pharokka_done=rules.wait_pharokka_all.output.flag,
+        listfile=lambda wc: checkpoints.collect_clean_islands.get(**wc).output[0]
+    output:
+        todo="intermediate/phold_todo.txt"
+    run:
+        import os
+        os.makedirs("intermediate", exist_ok=True)
+        with open(input.listfile) as fh:
+            samples = [ln.strip() for ln in fh if ln.strip()]
+        with open(output.todo, "w") as out:
+            for s in samples:
+                gbk = f"{PHAROKKA_OUT}/{s}/pharokka/{s}.gbk"
+                done = f"{PHOLD_OUT}/{s}/phold.done"
+                if (os.path.exists(gbk) and os.path.getsize(gbk) > 0) and not (os.path.exists(done) and os.path.getsize(done) > 0):
+                    out.write(s + "\n")
+
+############################################
+# Submit Phold for only the TODO samples
+############################################
+rule submit_phold_from_todo:
+    input:
+        todo=rules.phold_todo.output.todo
+    output:
+        flag="flags/phold_submitted.flag"
+    shell:
+        r'''
+        set -euo pipefail
+        mkdir -p flags logs
+        BATCH=20
+        TMP_EXPECTED="flags/.phold_expected.tmp"
+        : > "$TMP_EXPECTED"
+        count=0
+
+        submit_and_maybe_wait() {{
+          if (( count < BATCH )); then
+            return
+          fi
+          while true; do
+            missing=0
+            while IFS= read -r path; do
+              [[ -n "$path" ]] || continue
+              [[ -s "$path" ]] || missing=$((missing+1))
+            done < "$TMP_EXPECTED"
+            if (( missing == 0 )); then break; fi
+            echo "[phold/batch] waiting: $missing not ready..." >&2
+            sleep 60
+          done
+          : > "$TMP_EXPECTED"
+          count=0
+        }}
+
+        while IFS= read -r s; do
+          [[ -n "$s" ]] || continue
+          gbk="{PHAROKKA_OUT}/$s/pharokka/$s.gbk"
+          donef="{PHOLD_OUT}/$s/phold.done"
+          if [[ ! -s "$gbk" ]]; then
+            echo "[submit_phold] Skip (no gbk): $s" >&2
+            continue
+          fi
+          if [[ -s "$donef" ]]; then
+            echo "[submit_phold] Already done: $donef" >&2
+          else
+            echo "[submit_phold] sbatch $s"
+            sbatch scripts/phold_job.sh "$gbk" "{PHOLD_OUT}" >/dev/null
+          fi
+          printf '%s\n' "$donef" >> "$TMP_EXPECTED"
+          count=$((count+1))
+          submit_and_maybe_wait
+        done < "{input.todo}"
+
+        if (( count > 0 )); then
+          while true; do
+            missing=0
+            while IFS= read -r path; do
+              [[ -n "$path" ]] || continue
+              [[ -s "$path" ]] || missing=$((missing+1))
+            done < "$TMP_EXPECTED"
+            if (( missing == 0 )); then break; fi
+            echo "[phold/batch] waiting (final): $missing not ready..." >&2
+            sleep 60
+          done
+        fi
+
+        date > {output.flag}
+        '''
+
+
+############################################
+# Wait until ALL Phold jobs finish (all .done exist)
+############################################
+rule wait_phold_all:
+    input:
+        listfile=lambda wc: checkpoints.collect_clean_islands.get(**wc).output[0],
+        submitted=rules.submit_phold_from_todo.output.flag
+    output:
+        flag="flags/phold_all_complete.flag"
+    shell:
+        r'''
+        set -euo pipefail
+        mkdir -p flags
+
+        while true; do
+        missing=0
+        while IFS= read -r s; do
+            [[ -n "$s" ]] || continue
+            donef="{PHOLD_OUT}/$s/phold.done"
+            if [[ ! -s "$donef" ]]; then
+            missing=$((missing+1))
+            fi
+        done < "{input.listfile}"
+
+        if (( missing == 0 )); then
+            break
+        fi
+        echo "[wait_phold_all] waiting: $missing jobs not finished..." >&2
+        sleep 60
+        done
+
+        date > {output.flag}
+        '''

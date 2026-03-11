@@ -1,0 +1,163 @@
+Assembly Accession	Organism Name	Organism Infraspecific Names Strain	Organism Infraspecific Names Isolate	Assembly BioSample Accession	Assembly BioSample Host	Assembly BioSample Isolation source	Assembly Paired Assembly Accession
+GCF_000012245.1	Pseudomonas syringae pv. syringae B728a	B728a		SAMN02604347			GCA_000012245.1
+GCF_000145845.2	Pseudomonas syringae pv. maculicola str. ES4326	ES4326		SAMN02471321			GCA_000145845.2
+GCF_000302795.1	Pseudomonas syringae pv. avellanae str. ISPaVe013	ISPaVe013		SAMN02471968	Corylus avellana		GCA_000302795.1
+GCF_000302815.1	Pseudomonas syringae pv. avellanae str. ISPaVe037	ISPaVe037		SAMN02471963	Corylus avellana		GCA_000302815.1
+GCF_000331385.1	Pseudomonas syringae pv. syringae B64	B64		SAMN02472031	Triticum aestivum	leaf	GCA_000331385.1
+GCF_000333995.1	Pseudomonas syringae BRIP39023	BRIP39023		SAMN02469654		barley	GCA_000333995.1
+GCF_000334055.1	Pseudomonas syringae BRIP34881	BRIP34881		SAMN02469652	barley		GCA_000334055.1
+GCF_000344335.2	Pseudomonas syringae pv. actinidiae ICMP 9853	ICMP 9853		SAMN02471921	Actinidia		GCA_000344335.2
+GCF_000344475.3	Pseudomonas syringae pv. actinidiae str. Shaanxi_M228	Shaanxi_M228		SAMN02471925	Actinidia		GCA_000344475.3
+GCF_000412165.1	Pseudomonas syringae pv. syringae SM	SM		SAMN02472030	Triticum aestivum	leaf	GCA_000412165.1
+GCF_000452525.3	Pseudomonas syringae USA011	USA011		SAMN02471567		stream water	GCA_000452525.4
+GCF_000452565.2	Pseudomonas syringae UB303	UB303		SAMN02471550		lake water	GCA_000452565.3
+GCF_000452585.2	Pseudomonas syringae CC457	CC457		SAMN02471568		cantaloupe	GCA_000452585.3
+GCF_000452705.1	Pseudomonas syringae CC1557	CC1557		SAMN02471566		Snow	GCA_000452705.3
+GCF_000507185.2	Pseudomonas syringae KCTC 12500	KCTC 12500		SAMN02404616			GCA_000507185.2
+GCF_000658965.1	Pseudomonas syringae pv. actinidiae ICMP 9617	ICMP 9617		SAMN02740942	Actinidia		GCA_000658965.1
+GCF_000737245.1	Pseudomonas syringae	GAW0119		SAMN02929200		irrigation canal	GCA_000737245.1
+GCF_000738515.1	Pseudomonas syringae pv. syringae	Alf3		SAMN02870642	alfalfa	missing	GCA_000738515.1
+GCF_000935775.1	Pseudomonas syringae pv. syringae	41a		SAMN03328983	Prunus armeniaca		GCA_000935775.1
+GCF_000972175.1	Pseudomonas syringae pv. coryli str. NCPPB 4273	NCPPB 4273		SAMN03481961	Corylus avellana (Hazelnut)	Hazelnut twig	GCA_000972175.1
+GCF_000988395.1	Pseudomonas syringae pv. syringae HS191	HS191		SAMN03267749	Panicum miliaceum		GCA_000988395.1
+GCF_000988485.1	Pseudomonas syringae pv. syringae B301D	B301D		SAMN03267739	Pyrus communis		GCA_000988485.1
+GCF_001281365.1	Pseudomonas syringae UMAF0158	UMAF0158		SAMN04053740			GCA_001281365.1
+GCF_001293575.1	Pseudomonas syringae pv. maculicola	YM7930		SAMN03837766	Raphanus sativus		GCA_001293575.1
+GCF_001293775.1	Pseudomonas syringae pv. cilantro	0788_9		SAMN03737331	Cilantro		GCA_001293775.1
+GCF_001293855.1	Pseudomonas syringae pv. maculicola	90_32		SAMN03837739	Brassica oleracea		GCA_001293855.1
+GCF_001294305.1	Pseudomonas syringae pv. maculicola	M4a		SAMN03837764	Raphanus sativus		GCA_001294305.1
+GCF_001466845.1	Pseudomonas syringae ICMP 11293	ICMP 11293		SAMN04102819	Actinidia deliciosa		GCA_001466845.1
+GCF_001467115.1	Pseudomonas savastanoi	ICMP 19499		SAMN04092560		kiwi fruit	GCA_001467115.1
+GCF_001467285.1	Pseudomonas syringae ICMP 11168	ICMP 11168		SAMN04102817	Actinidia deliciosa		GCA_001467285.1
+GCF_001467365.1	Pseudomonas syringae ICMP 11292	ICMP 11292		SAMN04102818	Actinidia deliciosa		GCA_001467365.1
+GCF_001482725.1	Pseudomonas syringae pv. lapsa	ATCC 10859		SAMN03774723	Triticum aestivum		GCA_001482725.1
+GCF_001535725.1	Pseudomonas syringae pv. syringae	2340		SAMN03992219	Pyrus	Plant material	GCA_001535725.1
+GCF_001535855.1	Pseudomonas syringae pv. syringae	2339		SAMN03992218	Prunus avium	Plant material	GCA_001535855.1
+GCF_001623415.1	Pseudomonas syringae pv. syringae	MB03		SAMN03418705	Populus lasiocarpa Oliv.	frost damaged plant	GCA_001623415.1
+GCF_001675375.1	Pseudomonas syringae pv. syringae	2507		SAMN05182240	Triticum aestivum	leaves	GCA_001675375.1
+GCF_001675415.1	Pseudomonas syringae pv. syringae	1845		SAMN05182452	Helianthus annuus	leaves	GCA_001675415.1
+GCF_001698815.1	Pseudomonas syringae	GR12-2		SAMN03897383	missing	Canadian High Arctic grass	GCA_001698815.1
+GCF_002024305.1	Pseudomonas syringae pv. actinidiae	CRAFRU 14.08		SAMN06323273	Actinidia deliciosa		GCA_002024305.1
+GCF_002112065.1	Pseudomonas syringae pv. actinidiae	NZ45		SAMN06197089	Actinidia chinensis		GCA_002112065.1
+GCF_002157375.1	Pseudomonas syringae	PDD-32b-74		SAMN06242144		air	GCA_002157375.1
+GCF_002318025.1	Pseudomonas syringae	RM.P66		SAMN07158960	Arabidopsis thaliana		GCA_002318025.1
+GCF_002699845.1	Pseudomonas syringae	ICMP 4122		SAMN04092607		apricot	GCA_002699845.1
+GCF_002699965.1	Pseudomonas syringae	NCPPB 3871		SAMN04102821	Actinidia sp.		GCA_002699965.1
+GCF_002763655.1	Pseudomonas syringae pv. actinidiae	MAFF212063		SAMN07966197	Actinidia chinensis		GCA_002763655.1
+GCF_002770765.1	Pseudomonas syringae	R10.79		SAMN07135990		Rain sample	GCA_002770765.1
+GCF_002905975.1	Pseudomonas syringae pv. syringae	Pss9656		SAMN05861169	Prunus avium		GCA_002905975.1
+GCF_002906015.1	Pseudomonas syringae pv. syringae	Pss9654		SAMN05861175	Prunus domestica		GCA_002906015.1
+GCF_002906035.1	Pseudomonas syringae group genomosp. 3	9643		SAMN05861176	Prunus domestica		GCA_002906035.1
+GCF_002916225.1	Pseudomonas syringae pv. syringae	5264		SAMN06628315	Prunus avium		GCA_002916225.1
+GCF_002916255.1	Pseudomonas syringae pv. syringae	7928A		SAMN06627535	Prunus avium		GCA_002916255.1
+GCF_002916275.1	Pseudomonas syringae pv. syringae	5275		SAMN06627601	Prunus avium		GCA_002916275.1
+GCF_002916335.1	Pseudomonas syringae	7969		SAMN06627496	Prunus avium	orchard	GCA_002916335.1
+GCF_002916375.1	Pseudomonas syringae	7928C		SAMN06627545	Prunus avium		GCA_002916375.1
+GCF_002917155.1	Pseudomonas syringae pv. syringae	2676C		SAMN05861182	Phaseolus vulgaris		GCA_002917155.1
+GCF_002917175.1	Pseudomonas syringae pv. syringae	psy100		SAMN05861178	Phaseolus lunatus		GCA_002917175.1
+GCF_002917195.1	Pseudomonas syringae pv. syringae	2675C		SAMN05861181	Abelmoschus esculentus		GCA_002917195.1
+GCF_002966555.1	Pseudomonas syringae pv. tomato	B13-200		SAMN03481242	Solanum lycopersicum cv. Brillante		GCA_002966555.1
+GCF_003047185.1	Pseudomonas syringae pv. atrofaciens	LMG5095	Triticum aestivum (Aestivum Group)	SAMN08861783	Triticum aestivum	Wheat (Triticum aestivum)	GCA_003047185.1
+GCF_003412935.1	Pseudomonas syringae pv. syringae	529		SAMN09655441	Phaseolus vulgaris		GCA_003412935.1
+GCF_003665415.1	Pseudomonas syringae pv. actinidiae	P220		SAMN10228471	kiwifruit	canker of kiwifruit	GCA_003665415.1
+GCF_003699535.1	Pseudomonas syringae pv. aptata	G733		SAMN03976503	Oryza sativa	not collected	GCA_003699535.1
+GCF_003699875.1	Pseudomonas syringae	1188_1		SAMN03976479	Cucurbita pepo var. melopepo	not collected	GCA_003699875.1
+GCF_004006335.1	Pseudomonas syringae		inb918	SAMN07972601		soil	GCA_004006335.1
+GCF_004103795.1	Pseudomonas syringae	260-02		SAMN05913381	Apple Tree		GCA_004103795.1
+GCF_004124785.1	Pseudomonas syringae	13-429		SAMN06318302	watermelon	leaf	GCA_004124785.1
+GCF_004376045.1	Pseudomonas syringae pv. tomato	BRIP38746		SAMN11124439	Solanum lycopersicum		GCA_004376045.1
+GCF_009800225.1	Pseudomonas syringae pv. tomato	delta X		SAMN13577971	not applicable	not applicable	GCA_009800225.1
+GCF_009898305.1	Pseudomonas syringae pv. dysoxyli	CFBP 2356		SAMN12253512	Didymocheton spectabilis		GCA_009898305.1
+GCF_009898345.1	Pseudomonas syringae	P108		SAMN12288112	Cucurbita pepo subsp. pepo		GCA_009898345.1
+GCF_009898415.1	Pseudomonas syringae	P121		SAMN12288432	Cucurbita pepo subsp. pepo		GCA_009898415.1
+GCF_009898725.1	Pseudomonas syringae	P78		SAMN12288860	Cucurbita pepo subsp. pepo		GCA_009898725.1
+GCF_009898845.1	Pseudomonas syringae	CFBP 8692		SAMN12305548	Cucurbita pepo subsp. pepo		GCA_009898845.1
+GCF_014493635.1	Pseudomonas syringae pv. syringae	UMAF3028		SAMN16047465	Mangifera indica	mango apical buds from mango crop farm	GCA_014493635.1
+GCF_014524645.1	Pseudomonas syringae	CAS02		SAMN10088812	tobacco		GCA_014524645.1
+GCF_014841295.1	Pseudomonas syringae	CFBP13574		SAMN16237900	Raphanus sativus	Seed	GCA_014841295.1
+GCF_014841345.1	Pseudomonas syringae	CFBP13571		SAMN16237876	Raphanus sativus	Seed	GCA_014841345.1
+GCF_014842595.1	Pseudomonas syringae	CFBP8777		SAMN16237050	Phaseolus vulgaris	flower	GCA_014842595.1
+GCF_015680915.2	Pseudomonas syringae pv. actinidifoliorum ICMP 18803	ICMP 18803		SAMN13855180			GCA_015680915.2
+GCF_015865025.1	Pseudomonas syringae pv. tomato	Pst235		SAMN16977084	Solanum lycopersicum	seedlings	GCA_015865025.1
+GCF_016307325.1	Pseudomonas syringae	Karpuz_1_hishtil_a		SAMN16885849	watermelon	Nursery	GCA_016307325.1
+GCF_016307705.1	Pseudomonas syringae	Sevgi_fide_PST		SAMN16885828	tomato	Nursery	GCA_016307705.1
+GCF_016307755.1	Pseudomonas syringae	Dr_447_1		SAMN16885826	tomato	Field	GCA_016307755.1
+GCF_016307905.1	Pseudomonas syringae	Kozan_2015_1		SAMN16885820	plum	Orchard	GCA_016307905.1
+GCF_016307945.1	Pseudomonas syringae	Dortyol_2015_6		SAMN16885817	sweat orange	Orchard	GCA_016307945.1
+GCF_016307995.1	Pseudomonas syringae	Erdemli_6		SAMN16885814	Lemon	Orchard	GCA_016307995.1
+GCF_016308045.1	Pseudomonas syringae	Erdemli_3		SAMN16885812	Lemon	Orchard	GCA_016308045.1
+GCF_016308075.1	Pseudomonas syringae	Erzin_1		SAMN16885810	plum	Orchard	GCA_016308075.1
+GCF_016308085.1	Pseudomonas syringae	Erzin_2		SAMN16885811	plum	Orchard	GCA_016308085.1
+GCF_016599655.1	Pseudomonas syringae pv. maculicola	MAFF 302723		SAMN17146459	Japanese radish		GCA_016599655.1
+GCF_016694755.2	Pseudomonas syringae	BIM B-268		SAMN17278557	Ribes nigrum	Ribes nigrum leaves	GCA_016694755.2
+GCF_018383395.1	Pseudomonas syringae	SHV1866		SAMN19068587	Medicago sativa	plant stem	GCA_018383395.1
+GCF_018383435.1	Pseudomonas syringae	Tule230		SAMN19068630	Medicago sativa	plant stem	GCA_018383435.1
+GCF_018383455.1	Pseudomonas syringae	SV921		SAMN19069219	Medicago sativa	plant stem	GCA_018383455.1
+GCF_018383465.1	Pseudomonas syringae	U888		SAMN19069639	Medicago sativa	plant stem	GCA_018383465.1
+GCF_018383485.1	Pseudomonas syringae	SHV323		SAMN19069556	Medicago sativa	plant stem	GCA_018383485.1
+GCF_018383755.1	Pseudomonas syringae	SV1599		SAMN19068161	Medicago sativa	plant stem	GCA_018383755.1
+GCF_018385455.1	Pseudomonas syringae	Tule1434		SAMN19068848	Medicago sativa	plant stem	GCA_018385455.1
+GCF_018388485.1	Pseudomonas syringae	KF529		SAMN19067894	Medicago sativa		GCA_018388485.1
+GCF_018388505.1	Pseudomonas syringae	Susan762		SAMN19069274	Medicago sativa		GCA_018388505.1
+GCF_018388525.1	Pseudomonas syringae	U643		SAMN19068847	Medicago sativa		GCA_018388525.1
+GCF_018394375.1	Pseudomonas syringae	Susan2139		SAMN19068034	Medicago sativa	plant stem	GCA_018394375.1
+GCF_018604405.1	Pseudomonas syringae	StP26		SAMN19267609	Medicago sativa		GCA_018604405.1
+GCF_019904335.1	Pseudomonas syringae	RAYR-BL		SAMN20490809	Arabidopsis	leaves	GCA_019904335.1
+GCF_021605415.1	Pseudomonas syringae	PA-6-8C		SAMN13196040	Prunus avium		GCA_021605415.1
+GCF_021609875.1	Pseudomonas syringae	PA-1-11B		SAMN13195885	Prunus avium		GCA_021609875.1
+GCF_021887355.1	Pseudomonas syringae	PA-5-3G		SAMN13195997	Prunus avium		GCA_021887355.1
+GCF_021887415.1	Pseudomonas syringae	PA-5-3F		SAMN13195996	Prunus avium		GCA_021887415.1
+GCF_022510085.1	Pseudomonas syringae pv. lapsa	PslA1M171		SAMN25409863	Prunus avium	Macerated buds	GCA_022510085.1
+GCF_022510105.1	Pseudomonas syringae pv. syringae	PssA1M197		SAMN25409864	Prunus avium	Cherry fruit	GCA_022510105.1
+GCF_022510165.1	Pseudomonas syringae pv. syringae	PssA1M201		SAMN25409867	Prunus avium	missing	GCA_022510165.1
+GCF_022510185.1	Pseudomonas syringae pv. syringae	PssA1M208		SAMN25409868	Prunus avium	missing	GCA_022510185.1
+GCF_022510235.1	Pseudomonas syringae pv. syringae	PssA1M262		SAMN25409880	Prunus avium	Cankerous wood	GCA_022510235.1
+GCF_022513625.1	Pseudomonas syringae	PsA1M246		SAMN25409872	Prunus avium	missing	GCA_022513625.1
+GCF_022513725.1	Pseudomonas syringae pv. syringae	PssA1M250		SAMN25409874	Prunus avium	Leaf lesion	GCA_022513725.1
+GCF_022557235.1	Pseudomonas syringae pv. helianthi	LMG 5067		SAMN26368380	Helianthus annuus		GCA_022557235.1
+GCF_022557255.1	Pseudomonas syringae pv. tagetis	ICMP 4091		SAMN26368381	Tagetes erecta L		GCA_022557255.1
+GCF_022560185.1	Pseudomonas syringae pv. syringae	PssA1M3		SAMN25409858	Prunus avium	Leaf wash	GCA_022560185.1
+GCF_023167685.1	Pseudomonas syringae pv. actinidiae	MAFF613020		SAMD00155774			GCA_023167685.1
+GCF_023232145.1	Pseudomonas syringae pv. syringae	UMAF2600		SAMN23765227	Mangifera indica		GCA_023232145.1
+GCF_023232175.1	Pseudomonas syringae pv. syringae	UMAF1013		SAMN23765225	Mangifera indica		GCA_023232175.1
+GCF_023232205.1	Pseudomonas syringae pv. syringae	UMAF7000		SAMN23765229	Mangifera indica		GCA_023232205.1
+GCF_023232225.1	Pseudomonas syringae pv. syringae	UMAF2815		SAMN23765228	Mangifera indica		GCA_023232225.1
+GCF_023232315.1	Pseudomonas syringae pv. syringae	UMAF0297		SAMN23765224	Mangifera indica		GCA_023232315.1
+GCF_023232345.1	Pseudomonas syringae pv. syringae	UMAF2801		SAMN23765220	Mangifera indica		GCA_023232345.1
+GCF_023232385.1	Pseudomonas syringae pv. syringae	UMAF2016		SAMN23765221	Mangifera indica		GCA_023232385.1
+GCF_023232405.1	Pseudomonas syringae pv. syringae	UMAF0271		SAMN23765222	Mangifera indica		GCA_023232405.1
+GCF_023232445.1	Pseudomonas syringae pv. syringae	UMAF1003		SAMN23765218	Mangifera indica		GCA_023232445.1
+GCF_023232525.1	Pseudomonas syringae pv. syringae	UMAF0176		SAMN23765217	Mangifera indica		GCA_023232525.1
+GCF_023277945.1	Pseudomonas syringae pv. syringae	Pss9644		SAMN17034057	Prunus avium		GCA_023277945.1
+GCF_023278085.1	Pseudomonas syringae	PA-2-9E		SAMN17034055	Prunus avium		GCA_023278085.1
+GCF_023507655.1	Pseudomonas syringae	SZ47		SAMN27655480		soil	GCA_023507655.1
+GCF_025985485.1	Pseudomonas syringae	Psy33		SAMN11022113		missing	GCA_025985485.1
+GCF_026261625.1	Pseudomonas syringae	MUP32		SAMN31633288	Peas		GCA_026261625.1
+GCF_026261685.1	Pseudomonas syringae	MUP17		SAMN31633286	Barley		GCA_026261685.1
+GCF_026261705.1	Pseudomonas syringae	MUP20		SAMN31633287	Wheat		GCA_026261705.1
+GCF_028215955.1	Pseudomonas syringae pv. actinidiae	PSA.AH.01		SAMN32736826	Actinidia		GCA_028215955.1
+GCF_028435255.1	Pseudomonas syringae pv. syringae	EC33		SAMN18806531	Citrus x limon	missing	GCA_028435255.1
+GCF_028526735.1	Pseudomonas syringae	BRIP65014-c		SAMN23013833	Cucurbita pepo (Zucchini) var. Eva	fruit	GCA_028526735.1
+GCF_029383205.1	Pseudomonas syringae pv. syringae	HO7		SAMN33794722	Prunus avium	Macerated buds	GCA_029383205.1
+GCF_029383215.1	Pseudomonas syringae pv. syringae	S2_2		SAMN33794723	Prunus avium	missing	GCA_029383215.1
+GCF_029383305.1	Pseudomonas syringae	44527		SAMN33794771	Phasealus vulgaris	Macerated buds	GCA_029383305.1
+GCF_029433065.1	Pseudomonas syringae	M11		SAMN33794772	Actinidia deliciosa		GCA_029433065.1
+GCF_029870755.1	Pseudomonas syringae pv. papulans	PSP1		SAMN17884782	Apple NY-1	fruit	GCA_029870755.1
+GCF_030035225.1	Pseudomonas syringae pv. syringae	B48		SAMN35027177	Prunus persica		GCA_030035225.1
+GCF_030252405.1	Pseudomonas syringae pv. antirrhini str. 126	126		SAMN35570584	Antirrhinum majus		GCA_030252405.1
+GCF_030504425.1	Pseudomonas syringae pv. syringae	PssA1M140		SAMN25409861	Prunus avium	Macerated buds	GCA_030504425.1
+GCF_900105295.1	Pseudomonas syringae	31R1		SAMN05421724	not applicable	missing	GCA_900105295.1
+GCF_900107345.1	Pseudomonas syringae	BS2900		SAMN05444506	not applicable	missing	GCA_900107345.1
+GCF_900113535.1	Pseudomonas syringae	BS3829		SAMN05444062	not applicable	missing	GCA_900113535.1
+GCF_900113625.1	Pseudomonas syringae	BS3827		SAMN05444507	not applicable	missing	GCA_900113625.1
+GCF_900114665.1	Pseudomonas syringae	BS2732		SAMN05444064	not applicable	missing	GCA_900114665.1
+GCF_900115275.1	Pseudomonas syringae	BS0292		SAMN05444065	not applicable	missing	GCA_900115275.1
+GCF_900235815.1	Pseudomonas syringae		CFBP3840	SAMEA104365496			GCA_900235815.1
+GCF_900235825.1	Pseudomonas syringae pv. syringae		CFBP4215	SAMEA104365387			GCA_900235825.1
+GCF_900235835.1	Pseudomonas syringae pv. avii		CFBP3846	SAMEA104365390			GCA_900235835.1
+GCF_900235865.1	Pseudomonas syringae pv. syringae		CFBP2118	SAMEA104365386			GCA_900235865.1
+GCF_900235885.1	Pseudomonas syringae pv. cerasicola		CFBP6109	SAMEA104365388			GCA_900235885.1
+GCF_900235905.1	Pseudomonas syringae group genomosp. 3		CFBP6411	SAMEA104365493			GCA_900235905.1
+GCF_900289095.1	Pseudomonas syringae group genomosp. 3	CFBP 3800		SAMEA104572227			GCA_900289095.1
+GCF_900289125.1	Pseudomonas syringae	CFBP 2116		SAMEA104572225			GCA_900289125.1
+GCF_949769235.1	Pseudomonas syringae pv. tomato	DAPP-PG 215	IPVPG 215	SAMEA112361238	Solanum lycopersicum	tomato bacterial speck symptoms on leaves	GCA_949769235.1

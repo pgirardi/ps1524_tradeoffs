@@ -1,0 +1,1 @@
+makeblastdb -in ~/blastdb/data/ref10.faa -dbtype prot -parse_seqids -out ~/blastdb/data/ref10_db
