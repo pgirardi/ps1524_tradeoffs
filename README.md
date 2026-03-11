@@ -11,4 +11,3 @@
 8) QC trpE/trpG islands
 9) extract nucleotide fasta from GBKs
 10) run pharokka/phold on fasta using snakemake. manually curate tail fibers > syringae_tail_fibers.xlsx (inferred via synteny)
-11) create blastdb of reference phylogroups
