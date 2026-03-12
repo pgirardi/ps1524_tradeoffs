@@ -1,5 +1,3 @@
-# tailocin_tradeoffs
-
 ## syringae tailocin tail fiber annotation
 0) Download draft and complete P. syringae from pseudomonas.com (full genomes)
 1) Run seqkit stats to generate assembly_stats.tsv
