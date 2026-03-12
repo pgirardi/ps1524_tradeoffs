@@ -14,3 +14,5 @@ pt 1: syringae tail fibers
 10) run pharokka/phold on fasta using snakemake. manually curate tail fibers > syringae_tail_fibers.xlsx (inferred via synteny)
 
 pt 2: assign syringae genomes to phylogroup by ani
+1) download reference strains for phylogroups
+2) assign syringae genomes to phylogroup by ANI
