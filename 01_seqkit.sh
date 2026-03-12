@@ -1,1 +1,0 @@
-seqkit stats genomes/*.fna > assembly_stats.tsv
